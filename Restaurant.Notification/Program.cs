@@ -5,7 +5,10 @@ using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Restaurant.Messages.Repositories.Implementation;
+using Restaurant.Messages.Repositories.Interfaces;
 using Restaurant.Notification.Consumers;
+using Restaurant.Notification.Models;
 
 namespace Restaurant.Notification
 {
@@ -93,6 +96,7 @@ namespace Restaurant.Notification
                         });                      
                     });
 
+                    services.AddSingleton<IInMemoryRepository<NotifyModel>, InMemoryRepository<NotifyModel>>();
                     services.AddSingleton<Notifier>();
                     services.AddMassTransitHostedService(true);
                 });
