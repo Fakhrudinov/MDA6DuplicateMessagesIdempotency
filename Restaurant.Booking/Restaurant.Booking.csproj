@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Repositoties\Repositories.csproj" />
       <ProjectReference Include="..\Restaurant.Messages\Restaurant.Messages.csproj" />
     </ItemGroup>
 

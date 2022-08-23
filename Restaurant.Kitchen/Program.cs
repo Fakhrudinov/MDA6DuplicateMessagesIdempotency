@@ -5,7 +5,11 @@ using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Repositories.Interfaces;
+using Repositories.Models;
+using Repositoties;
 using Restaurant.Kitchen.Consumers;
+using Restaurant.Kitchen.Models;
 using Restaurant.Messages.CustomExceptions;
 
 namespace Restaurant.Kitchen
@@ -95,6 +99,10 @@ namespace Restaurant.Kitchen
                             cfg.ConfigureEndpoints(context);
                         });
                     });
+
+                    RepositoryConnectionSettings.ConnectionString = config.GetSection("RepositoryConnectionSettings").GetSection("ConnectionString").Value;
+                    Repositories.PrepareDataBases.CreateNewKitchenTable();
+                    services.AddSingleton<IDataBaseRepositoty<TableBookedModel>, KitchenIdempotencytRepository>();
 
                     services.AddSingleton<Manager>();
                     

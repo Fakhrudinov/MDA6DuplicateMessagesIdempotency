@@ -6,8 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Restaurant.Booking.Consumers;
+using Restaurant.Booking.Models;
 using Restaurant.Booking.Saga;
 using Restaurant.Messages.CustomExceptions;
+using Restaurant.Messages.Repositories.Implementation;
+using Restaurant.Messages.Repositories.Interfaces;
 
 namespace Restaurant.Booking
 {
@@ -107,6 +110,8 @@ namespace Restaurant.Booking
                         });
                     });
                     services.AddMassTransitHostedService(true);
+
+                    services.AddSingleton<IInMemoryRepository<BookingRequestModel>, InMemoryRepository<BookingRequestModel>>();
 
                     services.AddTransient<RestaurantBooking>();
                     services.AddTransient<RestaurantBookingSaga>();
